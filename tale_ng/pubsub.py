@@ -37,6 +37,11 @@ class Topic:
             if sub:
                 sub(self.name, event)
 
+    def remove_from(self, bus: 'Bus') -> None:
+        bus.remove_topic(self.name)
+        self.name = "<defunct>"
+        self.subscribers.clear()
+
 
 class Bus:
     """
@@ -52,11 +57,15 @@ class Bus:
         return list(self._topics)
 
     def remove_topic(self, name: str) -> None:
-        del self._topics[name]
+        try:
+            del self._topics[name]
+        except KeyError:
+            pass
 
-    def subscribe(self, topic: str, listener: ListenerType) -> None:
+    def subscribe(self, topic: str, listener: ListenerType) -> Topic:
         t = self.topic(topic, False)
         t.subscribe(listener)
+        return t
 
     def unsubscribe(self, topic: str, listener: ListenerType) -> None:
         with self._lock:
@@ -98,9 +107,10 @@ if __name__ == '__main__':
     bus = Bus()
     bus.subscribe("test.topic1", listener1)
     bus.subscribe("test.topic1", listener2)
-    bus.subscribe("test.topic2", listener1)
+    topic2 = bus.subscribe("test.topic2", listener1)
     print(bus.topics)
     bus.send("test.topic1", [1, 2, 3])
     bus.send("test.topic2", [1, 2, 3])
+    topic2.send("event to topic2")
     bus.unsubscribe_all(listener2)
     bus.broadcast("broadcasted")

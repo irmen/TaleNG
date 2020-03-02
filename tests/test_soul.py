@@ -9,6 +9,7 @@ import unittest
 import collections
 
 import tale_ng.soul.parse as parse
+import tale_ng.soul.adverbs as adverbs
 from tale_ng.objects import Location, Living, Item, Exit
 
 
@@ -421,6 +422,14 @@ class TestSoulNG(unittest.TestCase):
         self.assertEqual("Julie tries to sit down, but fails miserably.", room_msg)
 
     def testAdverbs(self):
+        self.assertTrue("noisily" in adverbs.ADVERBS)
+        self.assertFalse("zzzzzzzzzz" in adverbs.ADVERBS)
+        self.assertEqual(['nobly', 'nocturnally', 'noiselessly', 'noisily', 'nominally'], adverbs.search_prefix("no", 5))
+        self.assertEqual(['nobly'], adverbs.search_prefix("no", 1))
+        self.assertEqual(["abjectly"], adverbs.search_prefix("a", 1))
+        self.assertEqual(["zonally", "zoologically"], adverbs.search_prefix("zo"))
+        self.assertEqual(["zoologically"], adverbs.search_prefix("zoo"))
+        self.assertEqual([], adverbs.search_prefix("zzzzzzzzzz"))
         soul = parse.Soul()
         player = Living("julie", "f")
         # check handling of more than one adverb

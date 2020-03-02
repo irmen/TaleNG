@@ -1,5 +1,5 @@
 """
-'Tale' mud driver, mudlib and interactive fiction framework
+'Tale-NG' mud driver, mudlib and interactive fiction framework
 Copyright by Irmen de Jong (irmen@razorvine.net)
 """
 

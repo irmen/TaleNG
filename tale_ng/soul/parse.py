@@ -4,7 +4,7 @@ Based on ancient soul.c v1.2 written in LPC by profezzorn@nannymud (Fredrik Hüb
 Only the verb table is more or less intact (with some additions and fixes).
 The verb parsing and message generation have been fully rewritten.
 
-'Tale' mud driver, mudlib and interactive fiction framework
+'Tale-NG' mud driver, mudlib and interactive fiction framework
 Copyright by Irmen de Jong (irmen@razorvine.net)
 """
 
