@@ -1,0 +1,13 @@
+*.py[codz]
+*.class
+/.eggs/
+*.egg-info/
+/MANIFEST
+/.idea/
+/.tox/
+/build/
+/dist/
+/.cache/
+/*_cache/
+/.mypy_cache/
+.DS_Store
